@@ -15,8 +15,7 @@ import android.os.Bundle;
 import android.view.WindowManager;
 import android.widget.LinearLayout;
 
-import com.housekeeper.activity.tenant.TenantMainActivity;
-import com.housekeeper.client.RoleTypeEnum;
+import com.housekeeper.activity.landlord.LandlordMainActivity;
 import com.housekeeper.utils.BankUtil;
 import com.housekeeper.utils.FileUtil;
 import com.wufriends.housekeeper.landlord.R;
@@ -117,26 +116,7 @@ public class SplashActivity extends BaseActivity {
     }
 
     private void gotoMianActivity() {
-        String type = ActivityUtil.getSharedPreferences().getString(Constants.kCURRENT_TYPE, RoleTypeEnum.NONE);
-        Class<?> cls = null;
-
-
-        cls = TenantMainActivity.class;
-
-        /*
-        if (type.equals(RoleTypeEnum.NONE)) {
-            cls = TenantMainActivity.class;
-
-        } else if (type.equals(RoleTypeEnum.KEEPER)) {
-            cls = KeeperMainActivity.class;
-
-        } else if (type.equals(RoleTypeEnum.LANDLORD)) {
-            cls = LandlordMainActivity.class;
-
-        } else if (type.equals(RoleTypeEnum.TENANT)) {
-            cls = TenantMainActivity.class;
-        }
-        */
+        Class<?> cls = LandlordMainActivity.class;
 
         Intent intent = new Intent(SplashActivity.this, cls);
         SplashActivity.this.startActivity(intent);

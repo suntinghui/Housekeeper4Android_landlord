@@ -45,7 +45,7 @@ public class LandlordContactKeeperActivity extends BaseActivity implements View.
 
     private void initView() {
         this.findViewById(R.id.backBtn).setOnClickListener(this);
-        ((TextView) this.findViewById(R.id.titleTextView)).setText("联系房管家");
+        ((TextView) this.findViewById(R.id.titleTextView)).setText("房屋贷款");
 
         this.telphoneTextView = (TextView) this.findViewById(R.id.telphoneTextView);
         this.contentLayout = (LinearLayout) this.findViewById(R.id.contentLayout);

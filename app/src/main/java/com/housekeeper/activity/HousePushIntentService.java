@@ -10,6 +10,7 @@ import android.util.Log;
 import android.widget.RemoteViews;
 
 import com.housekeeper.activity.keeper.KeeperAddLandlordRelationQRActivity;
+import com.housekeeper.activity.landlord.LandlordMainActivity;
 import com.housekeeper.activity.tenant.TenantHomeActivity;
 import com.housekeeper.activity.tenant.TenantMainActivity;
 import com.housekeeper.client.Constants;
@@ -113,7 +114,7 @@ public class HousePushIntentService extends UmengBaseIntentService {
                 default:
                     Log.e("PUSH", "没有找到相应的类型");
                     if (!ActivityUtil.checkAppRunning(this)) {
-                        intent = new Intent(context, TenantMainActivity.class);
+                        intent = new Intent(context, LandlordMainActivity.class);
                         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     }
                     break;

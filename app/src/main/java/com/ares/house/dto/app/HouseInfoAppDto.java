@@ -1,5 +1,7 @@
 package com.ares.house.dto.app;
 
+import com.housekeeper.model.EquipmentAppDtoEx;
+
 import java.io.Serializable;
 import java.util.List;
 
@@ -77,7 +79,7 @@ public class HouseInfoAppDto implements Serializable {
 	/**
 	 * 房间配置
 	 */
-	private List<EquipmentAppDto> equipments;
+	private List<EquipmentAppDtoEx> equipments;
 	/**
 	 * 取暖费
 	 */
@@ -239,11 +241,11 @@ public class HouseInfoAppDto implements Serializable {
 		this.topImages = topImages;
 	}
 
-	public List<EquipmentAppDto> getEquipments() {
+	public List<EquipmentAppDtoEx> getEquipments() {
 		return equipments;
 	}
 
-	public void setEquipments(List<EquipmentAppDto> equipments) {
+	public void setEquipments(List<EquipmentAppDtoEx> equipments) {
 		this.equipments = equipments;
 	}
 

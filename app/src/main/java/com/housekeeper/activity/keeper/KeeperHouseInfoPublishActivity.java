@@ -26,7 +26,6 @@ import com.housekeeper.activity.tenant.TenantLookListActivity;
 import com.housekeeper.activity.view.EquipmentAdapter;
 import com.housekeeper.client.Constants;
 import com.housekeeper.client.RequestEnum;
-import com.housekeeper.client.RoleTypeEnum;
 import com.housekeeper.client.net.JSONRequest;
 import com.housekeeper.utils.ActivityUtil;
 import com.readystatesoftware.viewbadger.BadgeView;
@@ -265,7 +264,7 @@ public class KeeperHouseInfoPublishActivity extends BaseActivity implements View
         HashMap<String, String> tempMap = new HashMap<String, String>();
         tempMap.put("houseId", this.getIntent().getStringExtra("houseId"));
         tempMap.put("telphone", ActivityUtil.getSharedPreferences().getString(Constants.UserName, ""));
-        tempMap.put("userType", ActivityUtil.getSharedPreferences().getString(Constants.kCURRENT_TYPE, RoleTypeEnum.KEEPER));
+        tempMap.put("userType", Constants.ROLE);
 
         JSONRequest request = new JSONRequest(this, RequestEnum.HOUSE_RELEASE_INFO, tempMap, new Response.Listener<String>() {
 

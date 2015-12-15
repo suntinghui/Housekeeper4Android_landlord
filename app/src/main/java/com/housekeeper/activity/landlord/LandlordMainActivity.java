@@ -18,11 +18,9 @@ import com.ares.house.dto.app.ImSubAccountsAppDto;
 import com.ares.house.dto.app.StartupImageAppDto;
 import com.housekeeper.activity.DownloadSplashImageService;
 import com.housekeeper.activity.MyTabActivity;
-import com.housekeeper.activity.tenant.TenantMainActivity;
 import com.housekeeper.client.ActivityManager;
 import com.housekeeper.client.Constants;
 import com.housekeeper.client.RequestEnum;
-import com.housekeeper.client.RoleTypeEnum;
 import com.housekeeper.client.net.JSONRequest;
 import com.housekeeper.utils.ActivityUtil;
 import com.umeng.analytics.MobclickAgent;
@@ -79,9 +77,8 @@ public class LandlordMainActivity extends MyTabActivity {
 
         // 往TabWidget添加Tab
         tabhost = getTabHost();
-        tabhost.addTab(tabhost.newTabSpec("tag1").setIndicator("0").setContent(new Intent(this, LandlordHomeActivity.class)));
+        tabhost.addTab(tabhost.newTabSpec("tag1").setIndicator("0").setContent(new Intent(this, LandlordMeActivity.class)));
         tabhost.addTab(tabhost.newTabSpec("tag2").setIndicator("1").setContent(new Intent(this, LandlordRelationActivityEx.class)));
-        tabhost.addTab(tabhost.newTabSpec("tag3").setIndicator("2").setContent(new Intent(this, LandlordSettingActivity.class)));
     }
 
     @Override
@@ -102,15 +99,11 @@ public class LandlordMainActivity extends MyTabActivity {
 
             switch (index) {
                 case 0:
-                    ((RadioButton) this.findViewById(R.id.tab_main_home)).setChecked(true);
+                    ((RadioButton) this.findViewById(R.id.tab_main_me)).setChecked(true);
                     break;
 
                 case 1:
                     ((RadioButton) this.findViewById(R.id.tab_main_add)).setChecked(true);
-                    break;
-
-                case 2:
-                    ((RadioButton) this.findViewById(R.id.tab_main_setting)).setChecked(true);
                     break;
             }
         } catch (Exception e) {
@@ -127,16 +120,12 @@ public class LandlordMainActivity extends MyTabActivity {
                 // setCurrentTab 通过标签索引设置当前显示的内容
                 // setCurrentTabByTag 通过标签名设置当前显示的内容
                 switch (checkedId) {
-                    case R.id.tab_main_home:
+                    case R.id.tab_main_me:
                         tabhost.setCurrentTab(0);
                         break;
 
                     case R.id.tab_main_add:
                         tabhost.setCurrentTab(1);
-                        break;
-
-                    case R.id.tab_main_setting:
-                        tabhost.setCurrentTab(2);
                         break;
                 }
             } catch (Exception e) {
@@ -176,7 +165,7 @@ public class LandlordMainActivity extends MyTabActivity {
 
     private void requestCheckSplashImage() {
         HashMap<String, String> map = new HashMap<String, String>();
-        map.put("userType", ActivityUtil.getSharedPreferences().getString(Constants.kCURRENT_TYPE, RoleTypeEnum.LANDLORD));
+        map.put("userType", Constants.ROLE);
 
         JSONRequest request = new JSONRequest(LandlordMainActivity.this, RequestEnum.STARTUP_IMAGE, map, new Response.Listener<String>() {
 

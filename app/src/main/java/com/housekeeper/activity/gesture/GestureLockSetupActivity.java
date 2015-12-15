@@ -15,6 +15,7 @@ import android.widget.TextView;
 
 import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
+import com.housekeeper.activity.landlord.LandlordMainActivity;
 import com.housekeeper.activity.tenant.TenantHomeActivity;
 import com.housekeeper.activity.tenant.TenantMainActivity;
 import com.wufriends.housekeeper.landlord.R;
@@ -140,7 +141,7 @@ public class GestureLockSetupActivity extends BaseActivity implements LockPatter
 					this.finish();
 					
 				} else if (type == TYPE_REGISTER) {
-					Intent intent = new Intent(this, TenantMainActivity.class);
+					Intent intent = new Intent(this, LandlordMainActivity.class);
 					this.startActivity(intent);
 					this.finish();
 				}
@@ -177,7 +178,7 @@ public class GestureLockSetupActivity extends BaseActivity implements LockPatter
 			break;
 
 		case R.id.skipTextView:
-			Intent intent = new Intent(this, TenantMainActivity.class);
+			Intent intent = new Intent(this, LandlordMainActivity.class);
 			this.startActivity(intent);
 			this.finish();
 

@@ -54,12 +54,12 @@
                     <!-- 首页 -->
 
                     <RadioButton
-                        android:id="@+id/tab_main_home"
+                        android:id="@+id/tab_main_me"
                         style="@style/tab_button_bg"
                         android:layout_gravity="center_vertical"
                         android:background="@color/clear"
                         android:checked="true"
-                        android:drawableTop="@drawable/keeper_tab_home" />
+                        android:drawableTop="@drawable/keeper_tab_me" />
 
                     <!-- 关联 -->
 
@@ -69,15 +69,6 @@
                         android:layout_gravity="center_vertical"
                         android:background="@color/clear"
                         android:drawableTop="@drawable/keeper_tab_add" />
-
-                    <!-- 设置 -->
-
-                    <RadioButton
-                        android:id="@+id/tab_main_setting"
-                        style="@style/tab_button_bg"
-                        android:layout_gravity="center_vertical"
-                        android:background="@color/clear"
-                        android:drawableTop="@drawable/keeper_tab_setting" />
 
                 </RadioGroup>
 
@@ -109,24 +100,6 @@
                     </LinearLayout>
 
                     <!-- 关联 -->
-
-                    <LinearLayout
-                        android:layout_width="fill_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:gravity="right"
-                        android:orientation="horizontal"
-                        android:weightSum="2">
-
-                        <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:src="@drawable/red_circle"
-                            android:visibility="invisible" />
-                    </LinearLayout>
-
-                    <!-- 设置 -->
 
                     <LinearLayout
                         android:layout_width="fill_parent"

@@ -2,7 +2,6 @@ package com.housekeeper.activity.tenant;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.os.Vibrator;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
@@ -26,9 +25,6 @@ import org.codehaus.jackson.type.JavaType;
 
 import java.util.HashMap;
 
-import cn.bingoogolapple.qrcode.core.QRCodeView;
-import cn.bingoogolapple.qrcode.zbar.ZBarView;
-
 /**
  * Created by sth on 9/16/15.
  */
@@ -41,7 +37,7 @@ public class TenantRelationActivityEx extends BaseActivity implements View.OnCli
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        this.setContentView(R.layout.activity_tenant_relation_ex);
+        this.setContentView(R.layout.activity_landlord_relation_ex);
 
         this.findViewById(R.id.backBtn).setVisibility(View.GONE);
 

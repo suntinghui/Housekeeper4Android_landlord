@@ -10,12 +10,10 @@ import com.housekeeper.activity.BaseActivity;
 import com.housekeeper.activity.FeedBackactivity;
 import com.housekeeper.activity.ProductTourActivity;
 import com.housekeeper.activity.ShowWebViewActivity;
-import com.housekeeper.activity.SplashActivity;
-import com.housekeeper.activity.tenant.TenantHomeActivity;
+import com.housekeeper.activity.landlord.LandlordMainActivity;
 import com.housekeeper.activity.tenant.TenantMainActivity;
 import com.housekeeper.activity.view.DavinciView;
 import com.housekeeper.client.Constants;
-import com.housekeeper.client.RoleTypeEnum;
 import com.housekeeper.utils.ActivityUtil;
 import com.wufriends.housekeeper.landlord.R;
 
@@ -146,9 +144,8 @@ public class KeeperSystemSettingActivity extends BaseActivity implements View.On
                 sDialog.cancel();
 
                 ActivityUtil.getSharedPreferences().edit().putString(Constants.Base_Token, "").commit();
-                ActivityUtil.getSharedPreferences().edit().putString(Constants.kCURRENT_TYPE, RoleTypeEnum.NONE).commit();
 
-                Intent intent = new Intent(KeeperSystemSettingActivity.this, TenantMainActivity.class);
+                Intent intent = new Intent(KeeperSystemSettingActivity.this, LandlordMainActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 KeeperSystemSettingActivity.this.startActivity(intent);
             }

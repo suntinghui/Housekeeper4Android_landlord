@@ -20,13 +20,11 @@ import com.housekeeper.activity.FeedBackactivity;
 import com.housekeeper.activity.ProductTourActivity;
 import com.housekeeper.activity.ShowWebViewActivity;
 import com.housekeeper.activity.WithdrawalRecordsActivity;
-import com.housekeeper.activity.tenant.TenantHomeActivity;
 import com.housekeeper.activity.tenant.TenantMainActivity;
 import com.housekeeper.activity.view.DavinciView;
 import com.housekeeper.client.ActivityManager;
 import com.housekeeper.client.Constants;
 import com.housekeeper.client.RequestEnum;
-import com.housekeeper.client.RoleTypeEnum;
 import com.housekeeper.client.net.JSONRequest;
 import com.housekeeper.utils.ActivityUtil;
 import com.umeng.analytics.MobclickAgent;
@@ -166,23 +164,6 @@ public class LandlordSettingActivity extends BaseActivity implements View.OnClic
     private void responseUserMy() {
         // 绑定银行卡状态 a未绑定 c绑定失败 d确认中 e已绑定
         String status = "";
-        switch (infoDto.getBankCardStatus()) {
-            case 'a':
-                status = "未绑定";
-                break;
-
-            case 'c':
-                status = "绑定失败";
-                break;
-
-            case 'd':
-                status = "确认中";
-                break;
-
-            case 'e':
-                status = "已绑定";
-                break;
-        }
         bankCardView.getTipTextView().setText(status);
     }
 
@@ -302,9 +283,8 @@ public class LandlordSettingActivity extends BaseActivity implements View.OnClic
                 sDialog.cancel();
 
                 ActivityUtil.getSharedPreferences().edit().putString(Constants.Base_Token, "").commit();
-                ActivityUtil.getSharedPreferences().edit().putString(Constants.kCURRENT_TYPE, RoleTypeEnum.NONE).commit();
 
-                Intent intent = new Intent(LandlordSettingActivity.this, TenantMainActivity.class);
+                Intent intent = new Intent(LandlordSettingActivity.this, LandlordMainActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 LandlordSettingActivity.this.startActivity(intent);
             }

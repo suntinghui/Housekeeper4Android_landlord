@@ -31,6 +31,7 @@ import com.ares.house.dto.app.MyAppAgentDto;
 import com.ares.house.dto.app.UserAppDto;
 import com.housekeeper.activity.BaseActivity;
 import com.housekeeper.activity.CropImageActivity;
+import com.housekeeper.activity.ModifyLoginPWDActivity;
 import com.housekeeper.activity.SetTransferPWDActivity;
 import com.housekeeper.activity.VerifyEmergencyContactActivity;
 import com.housekeeper.activity.VerifyHasSetTransferPWDActivity;
@@ -43,8 +44,10 @@ import com.housekeeper.client.RequestEnum;
 import com.housekeeper.client.net.ImageCacheManager;
 import com.housekeeper.client.net.JSONRequest;
 import com.housekeeper.utils.ActivityUtil;
+import com.housekeeper.utils.StringUtil;
 import com.wufriends.housekeeper.landlord.R;
 
+import org.apache.commons.lang3.StringUtils;
 import org.codehaus.jackson.map.DeserializationConfig;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.codehaus.jackson.type.JavaType;
@@ -65,9 +68,7 @@ public class TenantPersonalVerifyActivity extends BaseActivity implements View.O
     private DavinciView headLogoView;
     private CustomNetworkImageView headImageView;
     private DavinciView transferPwdView;
-
-    private DavinciView contactView;
-    private DavinciView wechatView;
+    private DavinciView modifyLoginPwdView;
 
     private MyAppAgentDto agentDto = null;
 
@@ -128,17 +129,11 @@ public class TenantPersonalVerifyActivity extends BaseActivity implements View.O
         transferPwdView.getTipTextView().setText("");
         transferPwdView.setOnClickListener(this);
 
-        contactView = (DavinciView) this.findViewById(R.id.contactView);
-        contactView.getLogoImageView().setVisibility(View.GONE);
-        contactView.getTitleTextView().setText("紧急联系人");
-        contactView.getTipTextView().setText("");
-        contactView.setOnClickListener(this);
-
-        wechatView = (DavinciView) this.findViewById(R.id.wechatView);
-        wechatView.getLogoImageView().setVisibility(View.GONE);
-        wechatView.getTitleTextView().setText("微信认证");
-        wechatView.getTipTextView().setText("");
-        wechatView.setOnClickListener(this);
+        modifyLoginPwdView = (DavinciView) this.findViewById(R.id.modifyLoginPwdView);
+        modifyLoginPwdView.getLogoImageView().setVisibility(View.GONE);
+        modifyLoginPwdView.getTitleTextView().setText("修改登录密码");
+        modifyLoginPwdView.getTipTextView().setText("");
+        modifyLoginPwdView.setOnClickListener(this);
     }
 
     @Override
@@ -168,15 +163,8 @@ public class TenantPersonalVerifyActivity extends BaseActivity implements View.O
             }
             break;
 
-            case R.id.contactView: {
-                Intent intent = new Intent(this, VerifyEmergencyContactActivity.class);
-                this.startActivityForResult(intent, 0);
-            }
-            break;
-
-            case R.id.wechatView: {
-                Intent intent = new Intent(this, VerifyWechatActivity.class);
-                intent.putExtra("status", statusMap.get("WEBCHAT").charAt(0));
+            case R.id.modifyLoginPwdView: {
+                Intent intent = new Intent(this, ModifyLoginPWDActivity.class);
                 this.startActivityForResult(intent, 0);
             }
             break;
@@ -305,7 +293,7 @@ public class TenantPersonalVerifyActivity extends BaseActivity implements View.O
     }
 
     private void requestAllState() {
-        JSONRequest request = new JSONRequest(this, RequestEnum.SECURITY_CENTER_INFO, null, new Response.Listener<String>() {
+        JSONRequest request = new JSONRequest(this, RequestEnum.SECURITY_CENTER_BANK_INFO, null, new Response.Listener<String>() {
 
             @Override
             public void onResponse(String jsonObject) {
@@ -336,53 +324,15 @@ public class TenantPersonalVerifyActivity extends BaseActivity implements View.O
 
     private void responseAllState() {
         try {
-            transferPwdView.getTipTextView().setText(statusMap.get("TRANSACTION_PASSWORD").charAt(0) == 'a' ? "未设置" : "已设置");
-            contactView.getTipTextView().setText(statusMap.get("EMERGENCY_CONTACT").charAt(0) == 'a' ? "未设置" : "已设置");
-            wechatView.getTipTextView().setText(getStateMsg(statusMap.get("WEBCHAT").charAt(0)));
+            transferPwdView.getTipTextView().setText(StringUtils.isBlank(statusMap.get("TRANSACTION_PASSWORD")) ? "未设置" : "已设置");
 
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    /**
-     * a未提交 b已提交待审核 c审核失败 d审核中 e审核通过
-     */
-    private String getStateMsg(char c) {
-        String msg = "未提交";
-
-        switch (c) {
-            case 'a':
-                msg = "未提交";
-                break;
-
-            case 'b':
-                msg = "已提交";
-                break;
-
-            case 'c':
-                msg = "审核失败";
-                break;
-
-            case 'd':
-                msg = "审核中";
-                break;
-
-            case 'e':
-                msg = "已设置";
-                break;
-
-            default:
-                msg = "未知状态";
-                break;
-        }
-        return msg;
-    }
-
     private void hideAllState() {
         transferPwdView.getTipTextView().setText("");
-        contactView.getTipTextView().setText("");
-        wechatView.getTipTextView().setText("");
     }
 
     /**

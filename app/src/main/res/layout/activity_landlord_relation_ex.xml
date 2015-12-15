@@ -2,6 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/relation_bg"
     android:orientation="vertical">
 
     <include
@@ -65,13 +66,21 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/inputLayout"
-            android:layout_marginTop="50dip"
-            android:background="@drawable/blue_button_selector"
+            android:layout_marginTop="40dip"
+            android:background="@drawable/yellow_button_selector"
             android:paddingBottom="10dip"
             android:paddingTop="10dip"
             android:text="确  定"
             android:textColor="#ffffff"
             android:textSize="16sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dip"
+            android:text="输入关联码进行关联，即刻线上收取房租"
+            android:textColor="#CECECC"
+            android:textSize="15sp" />
 
     </LinearLayout>
 </RelativeLayout>

@@ -17,12 +17,10 @@ import com.ares.house.dto.app.LinkArticle;
 import com.ecloud.pulltozoomview.PullToZoomScrollViewEx;
 import com.housekeeper.activity.BaseActivity;
 import com.housekeeper.activity.HousePushIntentService;
-import com.housekeeper.activity.landlord.LandlordMainActivity;
 import com.housekeeper.activity.view.HouseRecommendLayout;
 import com.housekeeper.activity.view.MediaImagePagerAdapter;
 import com.housekeeper.client.Constants;
 import com.housekeeper.client.RequestEnum;
-import com.housekeeper.client.RoleTypeEnum;
 import com.housekeeper.client.net.JSONRequest;
 import com.housekeeper.utils.ActivityUtil;
 import com.housekeeper.utils.AdapterUtil;
@@ -69,8 +67,6 @@ public class TenantHomeActivity extends BaseActivity implements View.OnClickList
         super.onCreate(savedInstanceState);
 
         this.setContentView(R.layout.activity_tenant_home);
-
-        ActivityUtil.getSharedPreferences().edit().putString(Constants.kCURRENT_TYPE, RoleTypeEnum.TENANT).commit();
 
         loadViewForCode();
 

@@ -8,6 +8,7 @@ import android.webkit.WebSettings;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.housekeeper.activity.landlord.LandlordMainActivity;
 import com.housekeeper.activity.tenant.TenantHomeActivity;
 import com.housekeeper.activity.tenant.TenantMainActivity;
 import com.housekeeper.activity.view.NetErrorDialog;
@@ -86,7 +87,7 @@ public class ShowWebViewActivity extends BaseActivity implements OnClickListener
     private void backAction() {
         // 为推送准备
         if (ActivityManager.getInstance().getAllActivity().size() == 1) {
-            Intent intent = new Intent(this, TenantMainActivity.class);
+            Intent intent = new Intent(this, LandlordMainActivity.class);
             this.startActivity(intent);
             this.finish();
 

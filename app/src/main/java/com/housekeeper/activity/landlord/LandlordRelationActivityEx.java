@@ -2,7 +2,6 @@ package com.housekeeper.activity.landlord;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.os.Vibrator;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
@@ -26,13 +25,8 @@ import org.codehaus.jackson.type.JavaType;
 
 import java.util.HashMap;
 
-import cn.bingoogolapple.qrcode.core.QRCodeView;
-import cn.bingoogolapple.qrcode.zbar.ZBarView;
-
 /**
- * Created by sth on 9/10/15.
- * <p>
- * 关联
+ * Created by sth on 9/16/15.
  */
 public class LandlordRelationActivityEx extends BaseActivity implements View.OnClickListener {
 
@@ -96,6 +90,7 @@ public class LandlordRelationActivityEx extends BaseActivity implements View.OnC
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
+
             case R.id.doneBtn:
                 if (checkValue()) {
                     requestRelation(codeEditText.getText().toString().trim());
