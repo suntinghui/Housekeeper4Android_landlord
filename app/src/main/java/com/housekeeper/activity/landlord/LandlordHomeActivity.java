@@ -16,13 +16,11 @@ import com.ares.house.dto.app.LandlordHouseListAppDto;
 import com.housekeeper.activity.BaseActivity;
 import com.housekeeper.activity.WithdrawalsActivity;
 import com.housekeeper.activity.view.CustomNetworkImageView;
-import com.housekeeper.activity.view.LandlordHomeLayout;
 import com.housekeeper.client.ActivityManager;
 import com.housekeeper.client.Constants;
 import com.housekeeper.client.RequestEnum;
 import com.housekeeper.client.net.ImageCacheManager;
 import com.housekeeper.client.net.JSONRequest;
-import com.housekeeper.utils.ActivityUtil;
 import com.housekeeper.utils.AdapterUtil;
 import com.umeng.analytics.MobclickAgent;
 import com.wufriends.housekeeper.landlord.R;
@@ -31,8 +29,6 @@ import org.apache.commons.lang3.StringUtils;
 import org.codehaus.jackson.map.DeserializationConfig;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.codehaus.jackson.type.JavaType;
-
-import java.util.HashMap;
 
 /**
  * Created by sth on 9/10/15.
@@ -128,12 +124,12 @@ public class LandlordHomeActivity extends BaseActivity implements View.OnClickLi
 
         this.contentLayout.removeAllViews();
         for (LandlordHouseListAppDto dto : infoDto.getHouses()) {
-            LandlordHomeLayout layout = new LandlordHomeLayout(this);
-            layout.setData(dto);
-
-            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-            params.setMargins(0, 0, 0, AdapterUtil.dip2px(this, 20));
-            this.contentLayout.addView(layout, params);
+//            LandlordHomeLayout layout = new LandlordHomeLayout(this);
+//            layout.setData(dto);
+//
+//            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+//            params.setMargins(0, 0, 0, AdapterUtil.dip2px(this, 20));
+//            this.contentLayout.addView(layout, params);
         }
     }
 

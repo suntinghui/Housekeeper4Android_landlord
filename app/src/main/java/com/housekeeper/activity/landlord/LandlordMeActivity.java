@@ -23,10 +23,12 @@ import com.housekeeper.activity.WithdrawalsActivity;
 import com.housekeeper.activity.tenant.TenantCardSettingActivity;
 import com.housekeeper.activity.tenant.TenantPersonalVerifyActivity;
 import com.housekeeper.activity.tenant.TenantSettingActivity;
+import com.housekeeper.activity.view.LandlordHouseInfoLayout;
 import com.housekeeper.client.ActivityManager;
 import com.housekeeper.client.Constants;
 import com.housekeeper.client.RequestEnum;
 import com.housekeeper.client.net.JSONRequest;
+import com.housekeeper.utils.AdapterUtil;
 import com.umeng.analytics.MobclickAgent;
 import com.wufriends.housekeeper.landlord.R;
 
@@ -155,12 +157,12 @@ public class LandlordMeActivity extends BaseActivity implements View.OnClickList
 
         contentLayout.removeAllViews();
         for (LandlordHouseListAppDto dto : userDto.getHouses()) {
-//            TenantMeLayout layout = new TenantMeLayout(this);
-//            layout.setData(dto);
-//
-//            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-//            params.setMargins(0, 0, 0, AdapterUtil.dip2px(this, 20));
-//            contentLayout.addView(layout, params);
+            LandlordHouseInfoLayout layout = new LandlordHouseInfoLayout(this);
+            layout.setData(dto);
+
+            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+            params.setMargins(0, 0, 0, AdapterUtil.dip2px(this, 15));
+            contentLayout.addView(layout, params);
         }
     }
 
