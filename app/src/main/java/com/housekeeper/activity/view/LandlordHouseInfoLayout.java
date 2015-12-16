@@ -67,7 +67,7 @@ public class LandlordHouseInfoLayout extends LinearLayout {
     public void setData(final LandlordHouseListAppDto dto) {
         houseLogoImageView.setImageUrl(Constants.HOST_IP + dto.getIndexImgUrl(), ImageCacheManager.getInstance().getImageLoader());
         houseCommunityTextView.setText(dto.getCommunity() + " " + dto.getHouseNum());
-        houseAreaTextView.setText(dto.getCityStr() + " • " + dto.getAreaStr() + " • " + dto.getAddress());
+        houseAreaTextView.setText(dto.getCityStr() + " · " + dto.getAreaStr() + " · " + dto.getAddress());
         yearMoneyTextView.setText(dto.getYearMoney());
         timeTextView.setText(Html.fromHtml(dto.getBeginTimeStr() + "<font color=#666666> 至 </font>" + dto.getEndTimeStr()));
 

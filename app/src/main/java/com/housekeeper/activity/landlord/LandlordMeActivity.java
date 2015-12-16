@@ -3,8 +3,10 @@ package com.housekeeper.activity.landlord;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.text.Html;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -17,10 +19,13 @@ import com.ares.house.dto.app.LandlordHouseListAppDto;
 import com.ares.house.dto.app.UserAppDto;
 import com.ares.house.dto.app.UserHouseListAppDto;
 import com.housekeeper.activity.BaseActivity;
+import com.housekeeper.activity.HQReplacePayActivity;
 import com.housekeeper.activity.InvestmentActivity;
+import com.housekeeper.activity.ShowWebViewActivity;
 import com.housekeeper.activity.TransferHistoryActivity;
 import com.housekeeper.activity.WithdrawalsActivity;
 import com.housekeeper.activity.tenant.TenantCardSettingActivity;
+import com.housekeeper.activity.tenant.TenantLookListActivity;
 import com.housekeeper.activity.tenant.TenantPersonalVerifyActivity;
 import com.housekeeper.activity.tenant.TenantSettingActivity;
 import com.housekeeper.activity.view.LandlordHouseInfoLayout;
@@ -29,9 +34,13 @@ import com.housekeeper.client.Constants;
 import com.housekeeper.client.RequestEnum;
 import com.housekeeper.client.net.JSONRequest;
 import com.housekeeper.utils.AdapterUtil;
+import com.readystatesoftware.viewbadger.BadgeView;
 import com.umeng.analytics.MobclickAgent;
 import com.wufriends.housekeeper.landlord.R;
+import com.yuan.magic.MagicScrollView;
+import com.yuan.magic.MagicTextView;
 
+import org.apache.commons.lang3.StringUtils;
 import org.codehaus.jackson.map.DeserializationConfig;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.codehaus.jackson.type.JavaType;
@@ -50,11 +59,14 @@ public class LandlordMeActivity extends BaseActivity implements View.OnClickList
 
     private CircleImageView headImageView = null;
 
-    private TextView tipTextView = null; // 鼓鼓理财，为您创造10%的活期理财收益
-
     private LinearLayout hqAccountLayout = null;
-    private TextView totalMoneyTextView = null;
+
+    private MagicScrollView magicScrollView = null;
+    private MagicTextView totalMoneyTextView = null;// 累计收益
+
     private TextView yesterdayEarningsTextView = null; // 昨日收益：0.00元
+
+    private TextView guguTextView = null; // 鼓鼓理财，为您创造10%的活期理财收益
 
     private LinearLayout zjLayout = null; // 租金收入
 
@@ -62,6 +74,7 @@ public class LandlordMeActivity extends BaseActivity implements View.OnClickList
 
     private TextView moneyTextView = null;
 
+    private ImageView noHouseImageView = null;
     private LinearLayout contentLayout = null;
 
     private LandlordAppDto userDto = null;
@@ -97,15 +110,23 @@ public class LandlordMeActivity extends BaseActivity implements View.OnClickList
         topSettingTextView = (TextView) this.findViewById(R.id.topSettingTextView);
         topSettingTextView.setOnClickListener(this);
 
-        tipTextView = (TextView) this.findViewById(R.id.tipTextView);
-        tipTextView.setText(Html.fromHtml("<font color=#23AFF5>鼓鼓理财，</font><font color=#333333>为您创造10%的活期理财收益</font>"));
-
-        moneyTextView = (TextView) this.findViewById(R.id.moneyTextView);
-
         hqAccountLayout = (LinearLayout) this.findViewById(R.id.hqAccountLayout);
         hqAccountLayout.setOnClickListener(this);
-        totalMoneyTextView = (TextView) this.findViewById(R.id.totalMoneyTextView);
+
+        totalMoneyTextView = (MagicTextView) this.findViewById(R.id.totalMoneyTextView);
+        totalMoneyTextView.setLargeFontSize(35);
+        totalMoneyTextView.setSmallFontSize(35);
+        totalMoneyTextView.setValue(0.00);
+
+        magicScrollView = (MagicScrollView) this.findViewById(R.id.magicScrollView);
+
         yesterdayEarningsTextView = (TextView) this.findViewById(R.id.yesterdayEarningsTextView);
+
+        guguTextView = (TextView) this.findViewById(R.id.guguTextView);
+        guguTextView.setText(Html.fromHtml("<font color=#23AFF5>鼓鼓理财，</font><font color=#333333>为您创造10%的活期理财收益</font>"));
+        guguTextView.setOnClickListener(this);
+
+        moneyTextView = (TextView) this.findViewById(R.id.moneyTextView);
 
         zjLayout = (LinearLayout) this.findViewById(R.id.zjLayout);
         zjLayout.setOnClickListener(this);
@@ -114,11 +135,23 @@ public class LandlordMeActivity extends BaseActivity implements View.OnClickList
         dkLayout.setOnClickListener(this);
 
         this.findViewById(R.id.balanceLayout).setOnClickListener(this);
-        this.findViewById(R.id.zjLayout).setOnClickListener(this);
-        this.findViewById(R.id.dkLayout).setOnClickListener(this);
 
+        noHouseImageView = (ImageView) this.findViewById(R.id.noHouseImageView);
         contentLayout = (LinearLayout) this.findViewById(R.id.contentLayout);
     }
+
+    private Handler mHandler = new Handler() {
+        public void handleMessage(android.os.Message msg) {
+            int[] location = new int[2];
+
+            totalMoneyTextView.getLocationInWindow(location);
+            totalMoneyTextView.setLocHeight(location[1]);
+
+            magicScrollView.sendScroll(MagicScrollView.UP, 0);
+        }
+
+        ;
+    };
 
     private void requestUserHouse() {
         JSONRequest request = new JSONRequest(this, RequestEnum.HOUSE_LANDLORD, null, new Response.Listener<String>() {
@@ -151,9 +184,31 @@ public class LandlordMeActivity extends BaseActivity implements View.OnClickList
 
     private void responseUserHouse() {
         headImageView.setImageURL(Constants.HOST_IP + userDto.getLogoUrl());
+        if (StringUtils.isBlank(userDto.getLogoUrl())) {
+            headImageView.setBorderWidth(0);
+        } else {
+            headImageView.setBorderWidth(2);
+        }
+
+        double totalEarnings = Double.parseDouble(userDto.getHqMoney());
+        // 只有当数字大于0.10的时候，才会有涨动的动画，而且，如果小于0.10，金额会显示为0.00，且界面卡动。
+        if (totalEarnings >= 0.10) {
+            totalMoneyTextView.setValue(totalEarnings);
+            magicScrollView.AddListener(totalMoneyTextView);
+            mHandler.sendEmptyMessageDelayed(0, 100);
+        } else {
+            totalMoneyTextView.setText(userDto.getHqMoney());
+        }
+
         totalMoneyTextView.setText(userDto.getHqMoney());
-        yesterdayEarningsTextView.setText("昨日收益：" + userDto.getHqYesterday() + " 元");
+        yesterdayEarningsTextView.setText("昨日收益：" + userDto.getHqYesterday());
         moneyTextView.setText(userDto.getSurplusMoney());
+
+        if (userDto.getHouses().isEmpty()) {
+            noHouseImageView.setVisibility(View.VISIBLE);
+        } else {
+            noHouseImageView.setVisibility(View.GONE);
+        }
 
         contentLayout.removeAllViews();
         for (LandlordHouseListAppDto dto : userDto.getHouses()) {
@@ -220,6 +275,13 @@ public class LandlordMeActivity extends BaseActivity implements View.OnClickList
             }
             break;
 
+            case R.id.guguTextView: {
+                Intent intent = new Intent(this, ShowWebViewActivity.class);
+                intent.putExtra("title", "鼓鼓理财");
+                intent.putExtra("url", "http://www.baggugu.com/app/about.html");
+                startActivity(intent);
+            }
+            break;
         }
     }
 

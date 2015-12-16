@@ -142,7 +142,7 @@ public class JSONRequest extends StringRequest {
         } catch (NoSetInfoException e) {
             e.printStackTrace();
 
-            if (Constants.ROLE.equalsIgnoreCase("KEEPER")) {
+            if (Constants.ROLE.equalsIgnoreCase("AGENT")) {
                 Toast.makeText(HousekeeperApplication.getInstance().getCurrentActivity(), "请先完善个人认证信息", Toast.LENGTH_SHORT).show();
 
                 Intent intent = new Intent(HousekeeperApplication.getInstance().getCurrentActivity(), KeeperPersonalVerifyActivity.class);

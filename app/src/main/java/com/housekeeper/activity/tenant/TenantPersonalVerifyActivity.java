@@ -45,7 +45,6 @@ import com.housekeeper.client.RequestEnum;
 import com.housekeeper.client.net.ImageCacheManager;
 import com.housekeeper.client.net.JSONRequest;
 import com.housekeeper.utils.ActivityUtil;
-import com.housekeeper.utils.StringUtil;
 import com.wufriends.housekeeper.landlord.R;
 
 import org.apache.commons.lang3.StringUtils;
@@ -109,7 +108,7 @@ public class TenantPersonalVerifyActivity extends BaseActivity implements View.O
     }
 
     private void initView() {
-        ((TextView) this.findViewById(R.id.titleTextView)).setText("个人认证");
+        ((TextView) this.findViewById(R.id.titleTextView)).setText("个人设置");
         this.findViewById(R.id.backBtn).setOnClickListener(this);
 
         headLogoView = (DavinciView) this.findViewById(R.id.headLogoView);
@@ -139,7 +138,7 @@ public class TenantPersonalVerifyActivity extends BaseActivity implements View.O
 
         modifyGesturePwdLayout = (DavinciView) this.findViewById(R.id.modifyGesturePwdLayout);
         modifyGesturePwdLayout.getLogoImageView().setVisibility(View.GONE);
-        modifyGesturePwdLayout.getTitleTextView().setText("修改手势密码");
+        modifyGesturePwdLayout.getTitleTextView().setText("管理手势密码");
         modifyGesturePwdLayout.getTipTextView().setText("");
         modifyGesturePwdLayout.setOnClickListener(this);
     }

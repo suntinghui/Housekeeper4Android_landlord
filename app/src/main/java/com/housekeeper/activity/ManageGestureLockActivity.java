@@ -9,11 +9,11 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.wufriends.gugu.R;
-import com.gugu.activity.gesture.GestureLockModifyActivity;
-import com.gugu.activity.gesture.GestureLockVerifyActivity;
-import com.gugu.activity.gesture.GestureLockSetupActivity;
-import com.gugu.activity.gesture.GestureLockUtil;
+import com.housekeeper.activity.gesture.GestureLockModifyActivity;
+import com.housekeeper.activity.gesture.GestureLockSetupActivity;
+import com.housekeeper.activity.gesture.GestureLockUtil;
+import com.housekeeper.activity.gesture.GestureLockVerifyActivity;
+import com.wufriends.housekeeper.landlord.R;
 
 /**
  * 管理手势密码
