@@ -31,6 +31,7 @@ import com.ares.house.dto.app.MyAppAgentDto;
 import com.ares.house.dto.app.UserAppDto;
 import com.housekeeper.activity.BaseActivity;
 import com.housekeeper.activity.CropImageActivity;
+import com.housekeeper.activity.ManageGestureLockActivity;
 import com.housekeeper.activity.ModifyLoginPWDActivity;
 import com.housekeeper.activity.SetTransferPWDActivity;
 import com.housekeeper.activity.VerifyEmergencyContactActivity;
@@ -60,7 +61,7 @@ import java.util.Map;
 
 /**
  * Created by sth on 9/13/15.
- * <p/>
+ * <p>
  * 房管家  我  个人认证
  */
 public class TenantPersonalVerifyActivity extends BaseActivity implements View.OnClickListener {
@@ -69,6 +70,7 @@ public class TenantPersonalVerifyActivity extends BaseActivity implements View.O
     private CustomNetworkImageView headImageView;
     private DavinciView transferPwdView;
     private DavinciView modifyLoginPwdView;
+    private DavinciView modifyGesturePwdLayout;
 
     private MyAppAgentDto agentDto = null;
 
@@ -134,6 +136,12 @@ public class TenantPersonalVerifyActivity extends BaseActivity implements View.O
         modifyLoginPwdView.getTitleTextView().setText("修改登录密码");
         modifyLoginPwdView.getTipTextView().setText("");
         modifyLoginPwdView.setOnClickListener(this);
+
+        modifyGesturePwdLayout = (DavinciView) this.findViewById(R.id.modifyGesturePwdLayout);
+        modifyGesturePwdLayout.getLogoImageView().setVisibility(View.GONE);
+        modifyGesturePwdLayout.getTitleTextView().setText("修改手势密码");
+        modifyGesturePwdLayout.getTipTextView().setText("");
+        modifyGesturePwdLayout.setOnClickListener(this);
     }
 
     @Override
@@ -166,6 +174,12 @@ public class TenantPersonalVerifyActivity extends BaseActivity implements View.O
             case R.id.modifyLoginPwdView: {
                 Intent intent = new Intent(this, ModifyLoginPWDActivity.class);
                 this.startActivityForResult(intent, 0);
+            }
+            break;
+
+            case R.id.modifyGesturePwdLayout: {
+                Intent intent = new Intent(this, ManageGestureLockActivity.class);
+                this.startActivity(intent);
             }
             break;
         }
