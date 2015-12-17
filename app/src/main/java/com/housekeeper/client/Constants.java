@@ -22,7 +22,7 @@ public class Constants {
 
     public static final String PROTOCOL_IP = HOST_IP + "/app/agreement.html";
 
-    public static final String PHONE_SERVICE = "01053812098";
+    public static String PHONE_SERVICE = "01053812098";
 
     public static final String ROLE = "LANDLORD";
 

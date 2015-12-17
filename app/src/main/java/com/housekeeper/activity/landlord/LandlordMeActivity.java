@@ -2,6 +2,7 @@ package com.housekeeper.activity.landlord;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.Html;
@@ -137,6 +138,7 @@ public class LandlordMeActivity extends BaseActivity implements View.OnClickList
         this.findViewById(R.id.balanceLayout).setOnClickListener(this);
 
         noHouseImageView = (ImageView) this.findViewById(R.id.noHouseImageView);
+        noHouseImageView.setOnClickListener(this);
         contentLayout = (LinearLayout) this.findViewById(R.id.contentLayout);
     }
 
@@ -279,6 +281,13 @@ public class LandlordMeActivity extends BaseActivity implements View.OnClickList
                 Intent intent = new Intent(this, ShowWebViewActivity.class);
                 intent.putExtra("title", "鼓鼓理财");
                 intent.putExtra("url", "http://www.baggugu.com/app/about.html");
+                startActivity(intent);
+            }
+            break;
+
+            case R.id.noHouseImageView: {
+                Intent intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + Constants.PHONE_SERVICE));
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intent);
             }
             break;
