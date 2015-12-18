@@ -42,9 +42,10 @@ public class HousePushIntentService extends UmengBaseIntentService {
             return;
         }
 
+        UMessage msg = null;
         try {
             String message = intent.getStringExtra(BaseConstants.MESSAGE_BODY);
-            UMessage msg = new UMessage(new JSONObject(message));
+            msg = new UMessage(new JSONObject(message));
             UTrack.getInstance(context).trackMsgClick(msg);
 
             Map<String, String> map = JsonUtil.jsonToMap(msg.custom);
@@ -58,6 +59,9 @@ public class HousePushIntentService extends UmengBaseIntentService {
 
         } catch (Exception e) {
             e.printStackTrace();
+
+            Intent tempIntent = new Intent(context, LandlordMainActivity.class);
+            showNotification(context, msg, tempIntent);
         }
     }
 

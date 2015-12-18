@@ -9,7 +9,7 @@
         android:id="@+id/topbarLayout"
         android:layout_width="fill_parent"
         android:layout_height="50dip"
-        android:background="#1caff6"
+        android:background="@color/barcolor"
         android:orientation="horizontal" >
 
         <Button

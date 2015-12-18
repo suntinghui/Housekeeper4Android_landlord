@@ -1,6 +1,7 @@
 package com.housekeeper.activity.landlord;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -14,6 +15,7 @@ import com.ares.house.dto.app.AppMessageDto;
 import com.ares.house.dto.app.AppResponseStatus;
 import com.housekeeper.activity.BaseActivity;
 import com.housekeeper.client.ActivityManager;
+import com.housekeeper.client.Constants;
 import com.housekeeper.client.RequestEnum;
 import com.housekeeper.client.net.JSONRequest;
 import com.umeng.analytics.MobclickAgent;
@@ -63,13 +65,22 @@ public class LandlordRelationActivityEx extends BaseActivity implements View.OnC
                     AppMessageDto<String> dto = objectMapper.readValue(jsonObject, type);
                     if (dto.getStatus() == AppResponseStatus.SUCCESS) {
 
-                        Toast.makeText(LandlordRelationActivityEx.this, "关联成功", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(LandlordRelationActivityEx.this, "关联成功，等待房管家操作", Toast.LENGTH_SHORT).show();
+
+                        Intent intent1 = new Intent(Constants.ACTION_CHECK_TABHOST);
+                        intent1.putExtra("INDEX", 0);
+                        sendBroadcast(intent1);
 
                     } else {
                         Toast.makeText(LandlordRelationActivityEx.this, dto.getMsg(), Toast.LENGTH_SHORT).show();
                     }
+
                 } catch (Exception e) {
                     e.printStackTrace();
+
+                } finally {
+
+                    codeEditText.setText("");
                 }
 
             }

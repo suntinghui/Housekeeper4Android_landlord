@@ -122,7 +122,7 @@
             android:layout_height="1px"
             android:layout_marginBottom="10dip"
             android:layout_marginTop="10dip"
-            android:background="@drawable/dash_line" />
+            android:background="@color/gray" />
 
         <LinearLayout
             android:id="@+id/agentLayout"

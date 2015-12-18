@@ -286,9 +286,8 @@ public class LandlordMeActivity extends BaseActivity implements View.OnClickList
             break;
 
             case R.id.noHouseImageView: {
-                Intent intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + Constants.PHONE_SERVICE));
-                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                startActivity(intent);
+                Intent intent = new Intent(this, LandlordContactKeeperActivity.class);
+                this.startActivity(intent);
             }
             break;
         }
