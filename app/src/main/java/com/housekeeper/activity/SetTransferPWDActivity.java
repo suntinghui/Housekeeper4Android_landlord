@@ -37,7 +37,6 @@ import cn.pedant.SweetAlert.SweetAlertDialog;
  */
 public class SetTransferPWDActivity extends BaseActivity implements OnClickListener {
 
-	private TextView stepTextView;
 	private EditText newPwdEditText;
 	private EditText confirmNewPwdEditText;
 	private Button nextBtn;
@@ -64,13 +63,6 @@ public class SetTransferPWDActivity extends BaseActivity implements OnClickListe
 		Button backButton = (Button) this.findViewById(R.id.backBtn);
 		backButton.setOnClickListener(this);
 
-		stepTextView = (TextView) this.findViewById(R.id.stepTextView);
-		SpannableString ss = new SpannableString("2/2");
-		ss.setSpan(new AbsoluteSizeSpan(18, true), 0, 1, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-		ss.setSpan(new AbsoluteSizeSpan(14, true), 2, 3, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-		stepTextView.setText(ss);
-		stepTextView.setVisibility(View.GONE);
-
 		newPwdEditText = (EditText) this.findViewById(R.id.newPwdEditText);
 		newPwdEditText.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_VARIATION_PASSWORD);
 
@@ -79,14 +71,6 @@ public class SetTransferPWDActivity extends BaseActivity implements OnClickListe
 
 		nextBtn = (Button) this.findViewById(R.id.nextBtn);
 		nextBtn.setOnClickListener(this);
-	}
-
-	public void onResume() {
-		super.onResume();
-
-		if (type == TYPE_UPDATE) {
-			ViewUtil.dropoutView(stepTextView, 1000);
-		}
 	}
 
 	@Override
