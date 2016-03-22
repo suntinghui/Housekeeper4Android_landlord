@@ -191,16 +191,16 @@ public class NotFirstPayActivity extends BaseActivity implements OnClickListener
     private HashMap<String, String> getRequestMap() {
 
         HashMap<String, String> tempMap = new HashMap<String, String>();
-        tempMap.put("houseId", transferInfo.getId());
-        //tempMap.put("money", transferInfo.getTransferMoney());
-        tempMap.put("isSurplus", String.valueOf(transferInfo.isUseBalance()));
-        //tempMap.put("password", "");
+        tempMap.put("id", transferInfo.getId());
+        tempMap.put("money", transferInfo.getTransferMoney());
+        tempMap.put("surplus", String.valueOf(transferInfo.isUseBalance()));
+        tempMap.put("password", "");
 
         return tempMap;
     }
 
     private void requestSendCode() {
-        JSONRequest request = new JSONRequest(this, RequestEnum.LEASE_PAY_RENT_SENDVCODE, getRequestMap(), false, false, new Response.Listener<String>() {
+        JSONRequest request = new JSONRequest(this, RequestEnum.DEBT_BUY_SENDVCODE, getRequestMap(), false, false, new Response.Listener<String>() {
 
             @Override
             public void onResponse(String jsonObject) {
@@ -233,11 +233,12 @@ public class NotFirstPayActivity extends BaseActivity implements OnClickListener
 
     private void requestPay() {
         final HashMap<String, String> tempMap = this.getRequestMap();
-        tempMap.put("houseId", transferInfo.getId() + "");
-        tempMap.put("isSurplus", String.valueOf(transferInfo.isUseBalance()));
+        tempMap.put("id", reponseId);
+        tempMap.put("money", transferInfo.getTransferMoney());
+        tempMap.put("surplus", String.valueOf(transferInfo.isUseBalance()));
         tempMap.put("vcode", codeEditText.getText().toString().trim());
 
-        JSONRequest request = new JSONRequest(this, RequestEnum.LEASE_PAY_RENT, tempMap, false, false, new Response.Listener<String>() {
+        JSONRequest request = new JSONRequest(this, RequestEnum.DEBT_BUY, tempMap, false, false, new Response.Listener<String>() {
 
             @Override
             public void onResponse(String jsonObject) {

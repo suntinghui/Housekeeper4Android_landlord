@@ -24,9 +24,9 @@ import java.util.Map;
 
 /**
  * 无论是抢投、定投、转让的付款都走此流程。
- * <p/>
+ * <p>
  * 首先判断是否有设置交易密码，如果没有设置则首先设置交易密码。设置成功后重新走付款流程。
- * <p/>
+ * <p>
  * 一个原则，如果只用余额就能完成支付，则用交易密码做为安全凭证。如果需要银行卡支付则用手机验证码做为安全凭证，不再验证交易密码，两者二选其一。
  *
  * @author sth
@@ -105,6 +105,7 @@ public class TransferClient {
                 if (bankId == null || TextUtils.isEmpty(bankId) || TextUtils.equals(bankId, "null")) {
                     // 没有绑定
                     Intent intent = new Intent(context, BindingBankActivity.class);
+                    intent.putExtra("MAP", map);
                     context.startActivity(intent);
 
                 } else {
@@ -133,13 +134,12 @@ public class TransferClient {
 
     private void requestPayUseBalance(final PayUseBalanceDialog dialog, String pwd) {
         HashMap<String, String> tempMap = new HashMap<String, String>();
-        tempMap.put("houseId", transferInfo.getId());
-        // 使用余额支付，说明余额大于或是等于投资金额
-        //tempMap.put("money", transferInfo.getTransferMoney());
-        //tempMap.put("surplus", "true");
+        tempMap.put("id", transferInfo.getId());
+        tempMap.put("money", transferInfo.getTransferMoney());
+        tempMap.put("surplus", String.valueOf(transferInfo.isUseBalance()));
         tempMap.put("password", pwd);
 
-        JSONRequest request = new JSONRequest(context, RequestEnum.LEASE_PAY_RENT_SURPLUS, tempMap, new Response.Listener<String>() {
+        JSONRequest request = new JSONRequest(context, RequestEnum.DEBT_BUY_SENDVCODE, tempMap, new Response.Listener<String>() {
 
             @Override
             public void onResponse(String jsonObject) {
